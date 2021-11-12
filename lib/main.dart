@@ -485,15 +485,13 @@ class SearchWidget extends SearchDelegate {
     return ValueListenableBuilder(
       valueListenable: Hive.box<Car>('cars').listenable(),
       builder: (context, Box<Car> carsBox, _) {
-        var results = query.isEmpty
-            ? carsBox.values.toList()
-            : carsBox.values
-                .where(
-                  (car) => car.model.toLowerCase().contains(
-                        query.toLowerCase(),
-                      ),
-                )
-                .toList();
+        var results = carsBox.values
+            .where(
+              (car) => car.model.toLowerCase().contains(
+                    query.toLowerCase(),
+                  ),
+            )
+            .toList();
         return results.isEmpty
             ? Center(
                 child: Text(
